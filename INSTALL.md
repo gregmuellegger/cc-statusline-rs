@@ -1,8 +1,60 @@
 # Installation Guide for cc-statusline-rs
 
-This guide documents the dependencies required to build and install cc-statusline-rs.
+This guide provides two installation methods: using pre-built binaries or building from source.
 
-## System Requirements
+## Option 1: Install from GitHub Releases (Recommended)
+
+The easiest way to install cc-statusline-rs is to download a pre-built binary from the [GitHub Releases](https://github.com/gregmuellegger/cc-statusline-rs/releases) page.
+
+### Quick Install
+
+```bash
+# Set the version you want to install
+VERSION="0.1.0"  # Check releases page for latest version
+
+# Detect your platform
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+ARCH=$(uname -m)
+
+# Download the appropriate binary
+if [ "$OS" = "linux" ]; then
+    PLATFORM="linux-x86_64"
+elif [ "$OS" = "darwin" ]; then
+    if [ "$ARCH" = "arm64" ]; then
+        PLATFORM="macos-aarch64"
+    else
+        PLATFORM="macos-x86_64"
+    fi
+fi
+
+# Download and install
+curl -L -O https://github.com/gregmuellegger/cc-statusline-rs/releases/download/v${VERSION}/statusline-${PLATFORM}-v${VERSION}.tar.gz
+tar xzf statusline-${PLATFORM}-v${VERSION}.tar.gz
+mkdir -p ~/.claude
+mv statusline ~/.claude/cc-statusline-rs
+chmod +x ~/.claude/cc-statusline-rs
+
+# Update settings.json (requires Python 3)
+python3 -c "import json; \
+data = json.load(open('~/.claude/settings.json')) if os.path.exists('~/.claude/settings.json') else {}; \
+data['statusLine'] = {'type': 'command', 'command': '~/.claude/cc-statusline-rs'}; \
+json.dump(data, open('~/.claude/settings.json', 'w'), indent=2)"
+
+echo "Installation complete!"
+```
+
+### Available Platforms
+
+- `statusline-linux-x86_64` - Linux (glibc)
+- `statusline-linux-x86_64-musl` - Linux (static, no dependencies)
+- `statusline-macos-x86_64` - macOS Intel
+- `statusline-macos-aarch64` - macOS Apple Silicon
+
+## Option 2: Build from Source
+
+If you prefer to build from source or if a pre-built binary is not available for your platform, follow the instructions below.
+
+### System Requirements
 
 ### Required Dependencies
 
