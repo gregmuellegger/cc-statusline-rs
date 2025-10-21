@@ -80,36 +80,6 @@ This project follows [Semantic Versioning](https://semver.org/):
 - **MINOR** version for added functionality in a backwards compatible manner
 - **PATCH** version for backwards compatible bug fixes
 
-## Troubleshooting
-
-### Release Failed to Build
-
-If the GitHub Actions workflow fails:
-
-1. Check the Actions tab on GitHub for error details
-2. Common issues:
-   - Compilation errors on specific platforms
-   - Missing dependencies in the CI environment
-   - Invalid tag format (must be `v*.*.*`)
-
-### Tag Already Exists
-
-If you need to re-create a release with the same version:
-
-```bash
-# Delete the tag locally
-git tag -d v0.2.0
-
-# Delete the tag remotely
-git push origin :refs/tags/v0.2.0
-
-# Delete the release on GitHub (via web UI)
-
-# Re-create and push the tag
-git tag v0.2.0
-git push origin v0.2.0
-```
-
 ## CI/CD Workflow
 
 The release workflow (`.github/workflows/release.yml`) is triggered automatically when a tag matching `v*.*.*` is pushed to the repository.
