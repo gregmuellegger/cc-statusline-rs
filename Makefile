@@ -6,7 +6,7 @@ CURRENT_MAKEFILE_DIR := $(patsubst %/,%,$(dir $(CURRENT_MAKEFILE_PATH)))
 
 # Installation directory
 INSTALL_DIR := $(HOME)/.claude
-BINARY_NAME := statusline
+BINARY_NAME := cc-statusline-rs
 TARGET_PATH := $(INSTALL_DIR)/cc-statusline-rs
 SETTINGS_FILE := $(INSTALL_DIR)/settings.json
 
